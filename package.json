@@ -1,17 +1,18 @@
 {
   "name": "frontend-project-44-1",
-  "version": "1.0.0",
+  "version": "1.0.2",
+  "type": "module",
   "description": "[![Actions Status](https://github.com/Matvizzy/frontend-project-44/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Matvizzy/frontend-project-44/actions)",
   "bin": {
-    "nodejs-package": "bin/brain-games.js"
-  },  
-  "type": "module",
+    "nodejs-package": "bin/brain-games"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
-  
+  "license": "ISC",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
 }
-
