@@ -1,26 +1,54 @@
 #!/usr/bin/env node
+import readlineSync from 'readline-sync';
 
-import { welcomeUserGameEven, playGame } from '../src/cli.js';
+const welcome = () => {
+  console.log('Welcome to the Brain Games!');
+};
 
-function isEven(number) {
-  return number % 2 === 0;
-}
+const askName = () => {
+  const playerName = readlineSync.question('May I have your name? ');
+  console.log(`Hello, ${playerName}!`);
+  return playerName;
+};
 
-function generateQuestion() {
-  const number = Math.floor(Math.random() * 100) + 1;
-  return {
-    question: `Question: ${number}`,
-    correctAnswer: isEven(number) ? 'yes' : 'no'
-  };
-}
+const getRandomNumber = () => Math.floor(Math.random() * 100) + 1;
 
-function checkAnswer(userAnswer, correctAnswer) {
-  return userAnswer.toLowerCase() === correctAnswer;
-}
+const askQuestion = (number) => {
+  console.log(`Question: ${number}`);
+};
 
-function startGame() {
-  welcomeUserGameEven();
-  playGame(generateQuestion, checkAnswer);
-}
+const congratulate = (playerName) => {
+  console.log(`Congratulations, ${playerName}!`);
+};
 
-startGame();
+const isEven = (number) => number % 2 === 0;
+
+const startEvenGame = () => {
+  welcome();
+  const playerName = askName();
+
+  console.log('Answer "yes" if the number is even, otherwise answer "no".');
+
+  let correctAnswersCount = 0;
+
+  while (correctAnswersCount < 3) {
+    const questionNumber = getRandomNumber();
+    const correctAnswer = isEven(questionNumber) ? 'yes' : 'no';
+
+    askQuestion(questionNumber);
+    const userAnswer = readlineSync.question('Your answer: ');
+
+    if (userAnswer.toLowerCase() === correctAnswer) {
+      console.log('Correct!');
+      correctAnswersCount += 1;
+    } else {
+      console.log(`'${userAnswer}' is wrong answer ;(. Correct answer was '${correctAnswer}'.`);
+      console.log(`Let's try again, ${playerName}!`);
+      return;
+    }
+  }
+
+  congratulate(playerName);
+};
+
+startEvenGame();
